@@ -1,0 +1,43 @@
+.side-bar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    background-color: black;
+    border-right: 1px solid white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    align-items: start;
+    gap: 5px;
+}
+.side-bar img {
+    width: 180px;
+    margin-bottom: 25px;
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    padding: 3px 10px;
+    width: 100%;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+.nav-link:hover {
+    background-color: #333;
+}
+.icon-container {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    transform: translateY(11.5px);
+}

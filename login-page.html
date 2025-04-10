@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Clone</title>
+    <link rel="icon" href="icons8-instagram-48.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgb(186, 181, 184);
+            padding: 40px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container img {
+            width: 175px;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            position: relative;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border: 1px solid #605d5d;
+            border-radius: 3px;
+            background-color: #fafafa;
+            font-size: 14px;
+        }
+
+        .input-container .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0095f6;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0078d4;
+        }
+
+        .signup {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .signup a {
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="insta_text-removebg-preview.png">
+        <form id="loginForm" action="login.php" method="POST">
+            <input type="text" id="usernameOrEmail" placeholder="Username or Email" required>
+            <div class="error" id="usernameOrEmailError">Username or email is required.</div>
+
+            <div class="input-container">
+                <input type="password" id="password" placeholder="Password" required>
+                <img src="hide.png" id="togglePassword" class="eye-icon" alt="Toggle Password">
+            </div>
+            <div class="error" id="passwordError">Password is required.</div>
+
+            <button type="submit">Log In</button>
+        </form>
+        
+        <p class="signup">Don't have an account? <a href="signin-page.html">Sign up</a></p>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const usernameOrEmailInput = document.getElementById('usernameOrEmail');
+        const form = document.getElementById('loginForm');
+
+        const usernameOrEmailError = document.getElementById('usernameOrEmailError');
+        const passwordError = document.getElementById('passwordError');
+
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePassword.src = 'show.png';
+            } else {
+                passwordInput.type = 'password';
+                togglePassword.src = 'hide.png';
+            }
+        });
+
+        // Form validation
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            let isValid = true;
+
+            // Username or email validation
+            if (usernameOrEmailInput.value.trim() === '') {
+                usernameOrEmailError.style.display = 'block';
+                isValid = false;
+            } else {
+                usernameOrEmailError.style.display = 'none';
+            }
+
+            // Password validation
+            if (passwordInput.value.trim() === '') {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            // If all validations pass, redirect to home1.html
+            /*if (isValid) {
+                window.location.href = 'home1.html';
+            }*/
+        });
+    </script>
+</body>
+</html>

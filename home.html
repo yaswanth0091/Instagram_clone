@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Clone</title>
+    <link rel="icon" href="icons8-instagram-48.png" type="image">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            overflow: hidden;
+        }
+        .side-bar {
+            display: flex;
+            flex-direction: column;
+            width: 250px;
+            background-color: black;
+            border-right: 1px solid white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            align-items: start;
+            gap: 10px;
+            z-index: 10;
+        }
+        .side-bar img {
+            width: 180px;
+            margin-bottom: 25px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            padding: 3px 10px;
+            width: 100%;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .nav-link:hover {
+            background-color: #333;
+        }
+        .icon-container {
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            transform: translateY(11.5px);
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            width: calc(100% - 250px);
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .posts-container {
+            max-width: 500px;
+        }
+        .post {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid white;
+        }
+        .post b {
+            font-size: 14px;
+        }
+        .post-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .like-button, .comment-button {
+            transition: 0.3s;
+        }
+        .like-button:hover {
+            color: red;
+        }
+        .comment-button:hover {
+            color: gray;
+        }
+        
+        /* Explore page styles */
+        .explore-container {
+            display: none;
+            width: 100%;
+            padding: 10px;
+        }
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 5px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .explore-item {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%; /* Create square aspect ratio */
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .explore-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .explore-item:hover img {
+            transform: scale(1.05);
+        }
+        .explore-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+        .explore-item:hover .overlay {
+            opacity: 1;
+        }
+        .explore-stats {
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Loading spinner */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <aside class="side-bar">
+        <img src="insta_text-removebg-preview.png">
+        <a href="home1.html" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/home_white.png" class="nav-icon"></div>Home
+        </a>
+        <a href="#" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/search.jpg" class="nav-icon"></div>Search
+        </a>
+        <a href="#" id="exploreLink" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/explore.png" class="nav-icon"></div>Explore
+        </a>
+        <a href="#" id="reelsLink" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/reels-removebg-preview.png" class="nav-icon"></div>Reels
+        </a>
+        <a href="#" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/message-removebg-preview.png" class="nav-icon"></div>Messages
+        </a>
+        <a href="#" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/notification-removebg-preview.png" class="nav-icon"></div>Notifications
+        </a>
+        <a href="#" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/create-removebg-preview.png" class="nav-icon"></div>Create
+        </a>
+        <a href="profile.html" class="nav-link">
+            <div class="icon-container"><img src="side-bar_logo/profile.png" class="nav-icon"></div>Profile
+        </a>
+    </aside>
+    <main class="main-content">
+        <div class="posts-container" id="postsContainer">
+            <div class="post">
+                <b>yashu_chekuri</b><br>
+                <img src="3 monkeys.png" class="post-image">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>yashu_chekuri</b> 3 Monkeys</p>
+            </div>
+
+            <div class="post">
+                <b>unknown</b><br>
+                <img src="phone wallpaper.jpg" class="post-image">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>unknown</b> Batman</p>
+            </div>
+
+            <div class="post">
+                <b>unknown2</b><br>
+                <img src="GTA.png" class="post-image">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>unknown2</b> Jumping</p>
+            </div>
+        </div>
+        
+        <div class="reels-container" id="reelsContainer">
+            <div class="reels-scroll" id="reelsScroll">
+                <!-- Reels will be dynamically inserted here -->
+            </div>
+            <div class="loading" id="reelsLoading">
+                <div class="spinner"></div>
+            </div>
+            <div class="muted-indicator" id="mutedIndicator">Sound Off</div>
+        </div>
+
+        <div class="explore-container" id="exploreContainer">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+            </div>
+            <div class="explore-grid" id="exploreGrid">
+                <!-- Explore items will be dynamically inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Reference HTML elements
+        const reelsLink = document.getElementById('reelsLink');
+        const exploreLink = document.getElementById('exploreLink');
+        const postsContainer = document.getElementById('postsContainer');
+        const reelsContainer = document.getElementById('reelsContainer');
+        const exploreContainer = document.getElementById('exploreContainer');
+        const reelsScroll = document.getElementById('reelsScroll');
+        const exploreGrid = document.getElementById('exploreGrid');
+        const loading = document.getElementById('loading');
+        const reelsLoading = document.getElementById('reelsLoading');
+        const mutedIndicator = document.getElementById('mutedIndicator');
+
+        // Global variable to track mute state
+        let isMuted = true;
+
+        // Function to hide all content containers
+        function hideAllContainers() {
+            postsContainer.style.display = 'none';
+            reelsContainer.style.display = 'none';
+            exploreContainer.style.display = 'none';
+        }
+
+        // Array of video sources for reels
+        const reels = [
+            {
+                videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                profilePic: "side-bar_logo/profile.png",
+                user: "nature_videos",
+                caption: "Big Buck Bunny 🐰 #animation #nature",
+                music: "Forest Life - Ambient Sounds"
+            },
+            {
+                videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                profilePic: "side-bar_logo/profile.png",
+                user: "creative_films",
+                caption: "Elephants Dream 🐘 #animation #creative",
+                music: "Dreams of Nature - Relaxing Mix"
+            },
+            {
+                videoSrc: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                profilePic: "side-bar_logo/profile.png",
+                user: "tech_videos",
+                caption: "For Bigger Blazes 🔥 #tech #gadgets",
+                music: "Electronic Beats - Tech Mix"
+            }
+        ];
+
+        // Function to create a reel element with video
+        function createReelElement(reel) {
+            const reelItem = document.createElement('div');
+            reelItem.className = 'reel-item';
+            
+            reelItem.innerHTML = `
+                <video class="reel-video" src="${reel.videoSrc}" loop ${isMuted ? 'muted' : ''} playsinline></video>
+                <div class="reel-overlay">
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <img src="${reel.profilePic}" alt="${reel.user}">
+                            <span>${reel.user}</span>
+                        </div>
+                        <div class="icons">
+                            <span class="like-button">❤</span>
+                        </div>
+                    </div>
+                    <p class="reel-caption">${reel.caption}</p>
+                    <div class="reel-music">
+                        <div class="music-icon"></div>
+                        <span>${reel.music}</span>
+                    </div>
+                </div>
+                <div class="reel-actions">
+                    <div class="reel-action">
+                        <div class="icon">❤</div>
+                        <span>Like</span>
+                    </div>
+                    <div class="reel-action">
+                        <div class="icon">💬</div>
+                        <span>Comment</span>
+                    </div>
+                    <div class="reel-action">
+                        <div class="icon">➡</div>
+                        <span>Share</span>
+                    </div>
+                </div>
+                <div class="video-controls">
+                    <button class="play-pause">▶</button>
+                    <button class="toggle-mute">${isMuted ? '🔇' : '🔊'}</button>
+                </div>
+            `;
+            
+            // Add event listeners for video controls
+            const video = reelItem.querySelector('.reel-video');
+            const playPauseBtn = reelItem.querySelector('.play-pause');
+            const muteBtn = reelItem.querySelector('.toggle-mute');
+            
+            playPauseBtn.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                    playPauseBtn.textContent = '⏸';
+                } else {
+                    video.pause();
+                    playPauseBtn.textContent = '▶';
+                }
+            });
+            
+            muteBtn.addEventListener('click', () => {
+                isMuted = !isMuted;
+                
+                // Update mute state for all videos
+                document.querySelectorAll('.reel-video').forEach(v => {
+                    v.muted = isMuted;
+                });
+                
+                // Update all mute buttons
+                document.querySelectorAll('.toggle-mute').forEach(btn => {
+                    btn.textContent = isMuted ? '🔇' : '🔊';
+                });
+                
+                // Show muted indicator
+                mutedIndicator.textContent = isMuted ? 'Sound Off' : 'Sound On';
+                mutedIndicator.classList.add('show');
+                setTimeout(() => {
+                    mutedIndicator.classList.remove('show');
+                }, 2000);
+            });
+            
+            return reelItem;
+        }
+
+        // Function to create an explore item
+        function createExploreItem(imgSrc, likes, comments) {
+            const exploreItem = document.createElement('div');
+            exploreItem.className = 'explore-item';
+            
+            exploreItem.innerHTML = `
+                <img src="${imgSrc}" alt="Explore image" loading="lazy">
+                <div class="overlay">
+                    <div class="explore-stats">
+                        <span>❤ ${likes}</span>
+                        <span>💬 ${comments}</span>
+                    </div>
+                </div>
+            `;
+            
+            return exploreItem;
+        }
+
+        // FIXED Function to load reels videos - Simplified to avoid network issues
+        function loadReelsVideos() {
+            reelsScroll.innerHTML = '';
+            reelsLoading.style.display = 'flex';
+            
+            // Create reel elements for each video source
+            reels.forEach(reel => {
+                const reelElement = createReelElement(reel);
+                reelsScroll.appendChild(reelElement);
+            });
+            
+            reelsLoading.style.display = 'none';
+            
+            // Set up intersection observer for videos
+            setupVideoObserver();
+        }
+
+        // FIXED Function to load explore images - Using local images
+        function loadExploreImages() {
+            exploreGrid.innerHTML = '';
+            loading.style.display = 'flex';
+            
+            // Use local images for reliability
+            const localImages = ["3 monkeys.png", "phone wallpaper.jpg", "GTA.png"];
+            
+            // Create multiple items from available local images
+            for (let i = 0; i < 9; i++) {
+                // Cycle through local images
+                const imgIndex = i % localImages.length;
+                const imgSrc = localImages[imgIndex];
+                
+                // Generate random likes and comments
+                const likes = Math.floor(Math.random() * 10000) + 100;
+                const comments = Math.floor(Math.random() * 500) + 10;
+                
+                const exploreItem = createExploreItem(imgSrc, likes, comments);
+                exploreGrid.appendChild(exploreItem);
+            }
+            
+            loading.style.display = 'none';
+        }
+
+        // Function to setup Intersection Observer for videos
+        function setupVideoObserver() {
+            const videos = document.querySelectorAll('.reel-video');
+            
+            const options = {
+                root: reelsScroll,
+                rootMargin: '0px',
+                threshold: 0.7
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+                    
+                    if (entry.isIntersecting) {
+                        // If video is visible, play it
+                        video.play().catch(e => console.log('Error playing video:', e));
+                        
+                        // Update play/pause button
+                        const playPauseBtn = video.parentElement.querySelector('.play-pause');
+                        if (playPauseBtn) {
+                            playPauseBtn.textContent = '⏸';
+                        }
+                    } else {
+                        // If video is not visible, pause it
+                        video.pause();
+                        
+                        // Update play/pause button
+                        const playPauseBtn = video.parentElement.querySelector('.play-pause');
+                        if (playPauseBtn) {
+                            playPauseBtn.textContent = '▶';
+                        }
+                    }
+                });
+            }, options);
+            
+            videos.forEach(video => {
+                observer.observe(video);
+            });
+        }
+
+        // Add event listener to the Reels link
+        reelsLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            // Hide all containers
+            hideAllContainers();
+            
+            // Show reels
+            reelsContainer.style.display = 'block';
+            
+            // Load the reels videos
+            loadReelsVideos();
+        });
+
+        // Add event listener to the Explore link
+        exploreLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            // Hide all containers
+            hideAllContainers();
+            
+            // Show explore
+            exploreContainer.style.display = 'block';
+            
+            // Load explore images
+            loadExploreImages();
+        });
+
+        // Add event listeners to home link and any other links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link !== reelsLink && link !== exploreLink && !link.getAttribute('href').includes('.html')) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    // Hide all containers
+                    hideAllContainers();
+                    
+                    // Show posts (default view)
+                    postsContainer.style.display = 'block';
+                });
+            }
+        });
+
+        // Add functionality to like buttons
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('like-button')) {
+                // Toggle between filled and empty heart
+                if (event.target.textContent === '❤') {
+                    event.target.textContent = '❤';
+                    event.target.style.color = 'red';
+                } else {
+                    event.target.textContent = '❤';
+                    event.target.style.color = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

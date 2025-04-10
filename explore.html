@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Explore</title>
+    <link rel="icon" href="icons8-instagram-48.png" type="image">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: black;
+            color: white;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            width: calc(100% - 250px);
+        }
+        .explore-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 800px;
+        }
+        .explore-post {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .explore-post:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+    <div id="sidebar-container"></div>
+
+    <script>
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("sidebar-container").innerHTML = data;
+            });
+    </script>
+    <main class="main-content">
+        <div class="explore-container">
+            <img src="https://picsum.photos/300/300?random=1" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=2" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=3" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=4" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=5" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=6" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=7" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=8" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=9" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=10" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=11" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=12" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=13" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=14" class="explore-post">
+            <img src="https://picsum.photos/300/300?random=15" class="explore-post">
+        </div>
+    </main>
+</body>
+</html>

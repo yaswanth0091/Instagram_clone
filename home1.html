@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Clone</title>
+    <link rel="icon" href="icons8-instagram-48.png" type="image">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: black;
+            color: white;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            width: calc(100% - 250px);
+        }
+        .posts-container {
+            max-width: 500px;
+        }
+        .post {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid white;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+        }
+        .post b {
+            font-size: 14px;
+        }
+        .post-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .like-button {
+            transition: 0.3s;
+        }
+        .like-button.liked {
+            color: red;
+        }
+        .like-count {
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .comment-section {
+            margin-top: 10px;
+        }
+        .comment-list {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .comment-list p {
+            margin: 3px 0;
+        }
+        .comment-input {
+            width: 100%;
+            padding: 5px 8px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+        }
+    </style>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+    <div id="sidebar-container"></div>
+
+    <script>
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("sidebar-container").innerHTML = data;
+            });
+    </script>
+
+    <main class="main-content">
+        <div class="posts-container">
+            <div class="post">
+                <b>yashu_chekuri</b><br>
+                <img src="3 monkeys.png" class="post-image" alt="3 Monkeys">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="like-count">--</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>yashu_chekuri</b> 3 Monkeys</p>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment...">
+                    <div class="comment-list"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <b>unknown</b><br>
+                <img src="phone wallpaper.jpg" class="post-image" alt="Batman">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="like-count">--</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>unknown</b> Batman</p>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment...">
+                    <div class="comment-list"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <b>unknown2</b><br>
+                <img src="GTA.png" class="post-image" alt="GTA">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="like-count">--</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>unknown2</b> Jumping</p>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment...">
+                    <div class="comment-list"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <b>unknown3</b><br>
+                <img src="https://picsum.photos/300/300?random=1" class="post-image" alt="Random Image">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="like-count">--</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>unknown3</b> nothing</p>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment...">
+                    <div class="comment-list"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <b>unknown4</b><br>
+                <img src="https://picsum.photos/300/300?random=11" class="post-image" alt="Random Image">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="like-count">--</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>unknown4</b> nothing</p>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment...">
+                    <div class="comment-list"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <b>unknown5</b><br>
+                <img src="https://picsum.photos/300/300?random=111" class="post-image" alt="Random Image">
+                <div class="icons">
+                    <span class="like-button">❤</span>
+                    <span class="like-count">--</span>
+                    <span class="comment-button">💬</span>
+                </div>
+                <p><b>unknown5</b> nothing</p>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment...">
+                    <div class="comment-list"></div>
+                </div>
+            </div>
+        </div> 
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.post').forEach(post => {
+                const likeBtn = post.querySelector('.like-button');
+                const likeCountSpan = post.querySelector('.like-count');
+                let initialLikes = Math.floor(Math.random() * 201);
+                post.setAttribute("data-likes", initialLikes);
+                likeCountSpan.textContent = initialLikes + (initialLikes === 1 ? " like" : " likes");
+
+                likeBtn.addEventListener('click', () => {
+                    let liked = likeBtn.classList.toggle('liked');
+                    let count = parseInt(post.getAttribute("data-likes"));
+                    count = liked ? count + 1 : count - 1;
+                    post.setAttribute("data-likes", count);
+                    likeCountSpan.textContent = count + (count === 1 ? " like" : " likes");
+                });
+
+                const commentInput = post.querySelector('.comment-input');
+                const commentList = post.querySelector('.comment-list');
+
+                commentInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && commentInput.value.trim() !== "") {
+                        const comment = document.createElement('p');
+                        comment.textContent = commentInput.value.trim();
+                        commentList.appendChild(comment);
+                        commentInput.value = "";
+                    }
+                });
+            });
+        });
+        function createPostElement(post) {
+        const postDiv = document.createElement('div');
+        postDiv.className = 'post';
+        postDiv.innerHTML = `
+            <b>${post.username}</b><br>
+            <img src="${post.image_url}" class="post-image" alt="Post">
+            <div class="icons">
+                <span class="like-button" data-id="${post.id}">❤</span>
+                <span class="like-count">${post.likes} likes</span>
+                <span class="comment-button">💬</span>
+            </div>
+            <p><b>${post.username}</b> ${post.caption}</p>
+            <div class="comment-section">
+                <input type="text" class="comment-input" data-id="${post.id}" placeholder="Add a comment...">
+                <div class="comment-list">
+                    ${post.comments.map(c => `<p>${c}</p>`).join('')}
+                </div>
+            </div>
+        `;
+        return postDiv;
+    }
+
+    function fetchPosts() {
+        fetch('fetch_posts.php')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector('.posts-container');
+
+                container.innerHTML = "";
+                data.forEach(post => {
+                    container.appendChild(createPostElement(post));
+                });
+                setEvents();
+            });
+    }
+
+    function setEvents() {
+        document.querySelectorAll('.like-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const postId = btn.getAttribute('data-id');
+                fetch('like_post.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `post_id=${postId}`
+                }).then(() => fetchPosts());
+            });
+        });
+
+        document.querySelectorAll('.comment-input').forEach(input => {
+            input.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter' && input.value.trim() !== "") {
+                    const postId = input.getAttribute('data-id');
+                    const comment = input.value.trim();
+                    fetch('add_comment.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `post_id=${postId}&comment=${encodeURIComponent(comment)}`
+                    }).then(() => {
+                        input.value = "";
+                        fetchPosts();
+                    });
+                }
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchPosts);
+    </script>
+</body>
+</html>
