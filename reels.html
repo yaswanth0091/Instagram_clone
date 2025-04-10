@@ -169,24 +169,40 @@
                 likeCount.textContent = likes + (likes === 1 ? " like" : " likes");
 
                 likeBtn.addEventListener('click', () => {
-                    let liked = likeBtn.classList.toggle('liked');
-                    let count = parseInt(reel.getAttribute("data-likes"));
-                    count = liked ? count + 1 : count - 1;
-                    reel.setAttribute("data-likes", count);
-                    likeCount.textContent = count + (count === 1 ? " like" : " likes");
-                });
+                let liked = likeBtn.classList.toggle('liked');
+                let count = parseInt(reel.getAttribute("data-likes"));
+                count = liked ? count + 1 : count - 1;
+                reel.setAttribute("data-likes", count);
+                likeCount.textContent = count + (count === 1 ? " like" : " likes");
 
-                commentInput.addEventListener('keypress', e => {
-                    if (e.key === 'Enter') {
-                        const comment = commentInput.value.trim();
-                        if (comment !== "") {
-                            const commentElement = document.createElement("div");
-                            commentElement.textContent = "You: " + comment;
-                            commentsDiv.appendChild(commentElement);
-                            commentInput.value = "";
-                        }
-                    }
+                // Save like in database
+                const reelId = reelIndex + 1; // Assuming order in DB matches
+                fetch("update_like.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `reel_id=${reelId}`
                 });
+            });
+
+            commentInput.addEventListener('keypress', e => {
+            if (e.key === 'Enter') {
+                const comment = commentInput.value.trim();
+                if (comment !== "") {
+                    const commentElement = document.createElement("div");
+                    commentElement.textContent = "You: " + comment;
+                    commentsDiv.appendChild(commentElement);
+
+                    const reelId = reelIndex + 1;
+                    fetch("add_comment.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: `reel_id=${reelId}&comment=${encodeURIComponent(comment)}`
+                    });
+
+                    commentInput.value = "";
+                }
+            }
+        });
             });
         });
     </script>
