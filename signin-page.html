@@ -102,28 +102,19 @@
         <div class="container">
             <img src="insta_text-removebg-preview.png">
             <form id="signupForm" method="POST" action="signup.php">
-                <input type="email" id="email" placeholder="Email" required>
-                <div class="error" id="emailError">Please enter a valid email address.</div>
-
-                <input type="text" id="fullName" placeholder="Full Name" required>
-                <div class="error" id="fullNameError">Full name is required.</div>
-
-                <input type="text" id="username" placeholder="Username" required>
-                <div class="error" id="usernameError">Username must be at least 6 characters long.</div>
-
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
                 <div class="input-container">
-                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
                     <img src="hide.png" id="togglePassword" class="eye-icon" alt="Toggle Password">
                 </div>
-                <div class="error" id="passwordError">Password must be at least 8 characters long and include uppercase, lowercase, and symbols.</div>
-
                 <div class="input-container">
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
                 </div>
-                <div class="error" id="confirmPasswordError">Passwords do not match.</div>
-
                 <button type="submit">Sign Up</button>
             </form>
+            
             <br>
             <p class="T_C">By signing up, you agree to our Terms Data Policy and Cookies Policy</p>
             <p class="login">Already have an account? <a href="login-page.html">Login</a></p>
@@ -204,6 +195,7 @@
                 }
 
                 if (isValid) {
+                
                     form.submit();
                 }
             });
